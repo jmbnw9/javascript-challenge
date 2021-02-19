@@ -1,6 +1,19 @@
 // from data.js
 var tableData = data;
 
+// first populate the entire data 
+
+// Get a reference to the table body
+var tbody = d3.select("tbody");
+
+tableData.forEach((ufodata) => {
+  var row = tbody.append("tr");
+  Object.entries(ufodata).forEach(([key, value]) => {
+    var cell = row.append("td");
+    cell.text(value);
+  });
+});
+
 // Select the button
 var button = d3.select("#filter-btn");
 
@@ -21,15 +34,12 @@ function runEnter() {
 
   console.log(inputValue);
 
-  var filteredData = tableData.filter(tabledata => tableData.datetime === inputValue);
+  var filteredData = tableData.filter(ufodata => ufodata.datetime === inputValue);
 
   console.log(filteredData);
 
-
-
-  // Get a reference to the table body
-  var tbody = d3.select("tbody");
-
+  // clears the html page before displaying the filtered rows
+  tbody.html("")
   // Use d3 to append one table row `tr` for each ufo data object
   filteredData.forEach((ufodata) => {
     var row = tbody.append("tr");
@@ -38,4 +48,4 @@ function runEnter() {
       cell.text(value);
     });
   });
-});
+};
